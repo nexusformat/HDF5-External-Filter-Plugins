@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_oBIlUFvtEeeW3d99I2o1YQ" name="RootElement">
+  <packagedElement xmi:type="uml:Component" xmi:id="_sQLYoFvtEeeW3d99I2o1YQ" name="Libraries" isActive="true">
+    <packagedElement xmi:type="uml:Component" xmi:id="_gwDScFvvEeeW3d99I2o1YQ" name="LZ4"/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_wOnJ0Fv9EeeW3d99I2o1YQ" name="Snappy"/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_1MupoFv9EeeW3d99I2o1YQ" name="Blosc">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_iBcrEFv-EeeW3d99I2o1YQ" client="_1MupoFv9EeeW3d99I2o1YQ" supplier="_VZS3wFv-EeeW3d99I2o1YQ"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_jfq8kFv-EeeW3d99I2o1YQ" client="_1MupoFv9EeeW3d99I2o1YQ" supplier="_XNQvwFv-EeeW3d99I2o1YQ"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_kDSnAFv-EeeW3d99I2o1YQ" client="_1MupoFv9EeeW3d99I2o1YQ" supplier="_wOnJ0Fv9EeeW3d99I2o1YQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_VZS3wFv-EeeW3d99I2o1YQ" name="zlib"/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_XNQvwFv-EeeW3d99I2o1YQ" name="zstandard"/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_a03voFv-EeeW3d99I2o1YQ" name="bzip2"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_yHSGMFv-EeeW3d99I2o1YQ" name="plugins">
+    <packagedElement xmi:type="uml:Component" xmi:id="_0a5HkFv-EeeW3d99I2o1YQ" name="LZ4Plugin">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_r6cUAFv_EeeW3d99I2o1YQ" client="_0a5HkFv-EeeW3d99I2o1YQ" supplier="_gwDScFvvEeeW3d99I2o1YQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_6CVRMFv-EeeW3d99I2o1YQ" name="BZIP2Plugin">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_tJVJAFv_EeeW3d99I2o1YQ" client="_6CVRMFv-EeeW3d99I2o1YQ" supplier="_a03voFv-EeeW3d99I2o1YQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="__pXLIFv-EeeW3d99I2o1YQ" name="BLOSCPlugin">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_szW5AFv_EeeW3d99I2o1YQ" client="__pXLIFv-EeeW3d99I2o1YQ" supplier="_1MupoFv9EeeW3d99I2o1YQ"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
