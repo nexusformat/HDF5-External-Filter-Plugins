@@ -41,7 +41,8 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 #         directly to the directory where the plugins will be installed. 
 #=============================================================================
 if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
-    message(WARNING "Conan build is currently not implemented!")
+    include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
 endif()
 
 #=============================================================================

@@ -1,4 +1,4 @@
-
+message(STATUS ${LZ4_INCLUDE_DIRS})
 add_library(lz4_plugin MODULE H5Zlz4.c)
 target_include_directories(lz4_plugin PRIVATE
     ${LZ4_INCLUDE_DIRS}

@@ -1,0 +1,5 @@
+[requires]
+lz4/1.7.5@eugenwintersberger/testing
+
+[generators]
+cmake
