@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 project(hdf5_filter_plugins
         LANGUAGES C
         VERSION 0.0.1)
+include(CTest)
 
 
 #=============================================================================
@@ -35,6 +36,9 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 #         For Linux we need to use RPATH for linking and copy the libraries
 #         to a reasonable location according to the FHS (the same is true 
 #         for all other Unix systems). 
+#         As a matter of fact, as we do not install the modules in a directory
+#         available to the system linker we can also copy all the dependencies
+#         directly to the directory where the plugins will be installed. 
 #=============================================================================
 if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
     message(WARNING "Conan build is currently not implemented!")

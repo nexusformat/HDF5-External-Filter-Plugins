@@ -14,4 +14,5 @@ set(PLUGIN_NAME hdf5lz4)
 # add source directories
 #==============================================================================
 add_subdirectory(src)
+add_subdirectory(test)
 
