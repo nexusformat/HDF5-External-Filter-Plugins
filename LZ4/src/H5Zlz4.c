@@ -12,8 +12,8 @@
 #if defined(_WIN32)
 #include <Winsock2.h>
 #endif
-#include "H5PLextern.h"
-#include "lz4.h"
+#include <H5PLextern.h>
+#include <lz4.h>
 
 static size_t H5Z_filter_lz4(unsigned int flags, size_t cd_nelmts,
         const unsigned int cd_values[], size_t nbytes,
