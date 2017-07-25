@@ -4,3 +4,6 @@ lz4/1.7.5@eugenwintersberger/testing
 
 [generators]
 cmake
+
+[imports]
+bin, *.dll -> ./bin
