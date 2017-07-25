@@ -54,7 +54,7 @@ if(LZ4_USE_STATIC)
         message(STATUS "Static library not implemented on OSX")
     endif()
 else()
-    list(APPEND _LZ4_LIB_NAMES lz4)
+    list(APPEND _LZ4_LIB_NAMES lz4 liblz4)
 endif()
 
 #

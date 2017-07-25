@@ -43,6 +43,9 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
     include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
+    set(USE_CONAN ON)
+else()
+    set(USE_CONAN OFF)
 endif()
 
 #=============================================================================
@@ -54,7 +57,12 @@ endif()
 # For building the plugin modules we only need the header files. 
 # However, for the tests we also need the library!
 #
-find_package(HDF5 REQUIRED) 
+find_package(HDF5 REQUIRED COMPONENTS C) 
+
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+    add_definitions(-DH5_BUILT_AS_DYNAMIC_LIB)
+    link_directories(${HDF5_LIBRARY_DIRS})
+endif()
 
 
 #=============================================================================
