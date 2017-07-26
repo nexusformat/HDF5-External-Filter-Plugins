@@ -1,6 +1,7 @@
 [requires]
 hdf5/1.10.1@eugenwintersberger/testing
 lz4/1.7.5@eugenwintersberger/testing
+bzip2/1.0.6@wintersb/stable
 
 [generators]
 cmake

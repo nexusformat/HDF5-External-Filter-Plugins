@@ -9,5 +9,5 @@ add_test(NAME "HDF5:external_filters:bzip2"
 set_tests_properties("HDF5:external_filters:bzip2"
                      PROPERTIES
                      ENVIRONMENT
-                     "HDF5_PLUGIN_PATH=${PROJECT_BINARY_DIR}/BZIP2/src")
+                     "HDF5_PLUGIN_PATH=$<TARGET_FILE_DIR:bz2_plugin>")
 
