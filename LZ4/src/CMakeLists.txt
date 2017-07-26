@@ -25,4 +25,7 @@ target_include_directories(lz4_plugin PRIVATE ${INCLUDE_DIRS})
 target_link_libraries(lz4_plugin PRIVATE ${LINK_LIBS})
 set_target_properties(lz4_plugin PROPERTIES OUTPUT_NAME h5lz4)
 
+install(TARGETS lz4_plugin
+        DESTINATION ${CMAKE_INSTALL_PLUGINDIR})
+
 

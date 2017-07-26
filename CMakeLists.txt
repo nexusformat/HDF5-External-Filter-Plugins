@@ -3,6 +3,7 @@ project(hdf5_filter_plugins
         LANGUAGES C
         VERSION 0.0.1)
 include(CTest)
+include(CPackComponent)
 
 
 #=============================================================================
@@ -65,6 +66,27 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
 endif()
 
 
+#-----------------------------------------------------------------------------
+# set the installation paths
+#-----------------------------------------------------------------------------
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+    set(CMAKE_INSTALL_LIBDIR lib)
+    set(CMAKE_INSTALL_PLUGINDIR ${CMAKE_INSTALL_LIBDIR}/plugins)
+    set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION ${CMAKE_INSTALL_PLUGINDIR})
+   
+    #ensure that runtime libraries are installed along with the plugins 
+    include(InstallRequiredSystemLibraries)    
+else()
+    include(GNUInstallDirs)
+
+    #
+    # TODO: need to setup the installation directories for Linux and Unix
+    #       systems
+    #
+
+endif()
+
+
 #=============================================================================
 #add the subdirectories for the plugins to build
 #=============================================================================
@@ -75,3 +97,22 @@ endif()
 if(ENABLE_BZIP2_PLUGIN)
     add_subdirectory(BZIP2)
 endif()
+
+
+#=============================================================================
+# setting up the MSI build for Windows
+#=============================================================================
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+    set(RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
+    set(CPACK_GENERATOR WIX)
+    set(CPACK_PACKAGE_VENDOR "HDFGroup")
+    set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+    set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+    set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+
+    set(CPACK_RESOURCE_FILE_LICENSE "${RESOURCE_DIR}/LICENSE.txt")
+
+    include(CPack)
+    include(CPackWIX)
+endif()
+
