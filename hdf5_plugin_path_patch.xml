@@ -1,0 +1,6 @@
+﻿<CPackWiXPatch>
+  <CPackWiXFragment Id="CM_CP_lib.plugins.h5bz2.dll">      
+        <Environment Id="PluginPathSetup" Action="set" 
+        Name="HDF5_PLUGIN_PATH" Part="first" Value="[INSTALL_ROOT]\lib\plugins"/>        
+  </CPackWiXFragment>
+</CPackWiXPatch>

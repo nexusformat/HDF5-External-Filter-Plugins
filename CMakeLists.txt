@@ -111,6 +111,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
     set(CPACK_RESOURCE_FILE_LICENSE "${RESOURCE_DIR}/LICENSE.txt")
+    set(CPACK_WIX_PATCH_FILE "${PROJECT_SOURCE_DIR}/hdf5_plugin_path_patch.xml")
 
     include(CPack)
     include(CPackWIX)
