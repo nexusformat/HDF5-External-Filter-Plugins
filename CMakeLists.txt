@@ -83,6 +83,7 @@ else()
     # TODO: need to setup the installation directories for Linux and Unix
     #       systems
     #
+    set(CMAKE_INSTALL_PLUGINDIR ${CMAKE_INSTALL_LIBDIR}/plugins)
 
 endif()
 
