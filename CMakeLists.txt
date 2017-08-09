@@ -12,6 +12,7 @@ include(CPackComponent)
 
 set(ENABLE_LZ4_PLUGIN OFF CACHE BOOL "Build LZ4 filter plugin")
 set(ENABLE_BZIP2_PLUGIN OFF CACHE BOOL "Build BZIP2 filter plugin")
+set(ENABLE_BITSHUFFLE_PLUGIN OFF CACHE BOOL "Build with BitShuffle plugin")
 
 #
 # add the global cmake directory to the module search path. Thus we can keep
@@ -97,6 +98,10 @@ endif()
 
 if(ENABLE_BZIP2_PLUGIN)
     add_subdirectory(BZIP2)
+endif()
+
+if(ENABLE_BITSHUFFLE_PLUGIN)
+    add_subdirectory(bitshuffle)
 endif()
 
 
