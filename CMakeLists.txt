@@ -88,6 +88,11 @@ else()
 
 endif()
 
+#-----------------------------------------------------------------------------
+# set the output path for build artifacts - should make testing simpler 
+# (in particular when we want to test plugins simultaneously)
+#-----------------------------------------------------------------------------
+set(CMAKE_HDF5_PLUGIN_PATH ${PROJECT_BINARY_DIR}/plugins)
 
 #=============================================================================
 #add the subdirectories for the plugins to build

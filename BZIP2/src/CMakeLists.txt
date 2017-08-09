@@ -4,7 +4,9 @@ target_include_directories(bz2_plugin PRIVATE
 target_link_libraries(bz2_plugin PRIVATE
     ${BZIP2_LIBRARIES})
 set_target_properties(bz2_plugin PROPERTIES 
-    OUTPUT_NAME ${PLUGIN_NAME})
+    OUTPUT_NAME ${PLUGIN_NAME}
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HDF5_PLUGIN_PATH}
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HDF5_PLUGIN_PATH})
 
 install(TARGETS bz2_plugin
         DESTINATION ${CMAKE_INSTALL_PLUGINDIR})
