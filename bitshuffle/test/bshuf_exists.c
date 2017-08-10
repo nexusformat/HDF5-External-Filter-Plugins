@@ -11,8 +11,9 @@ int main()
         fprintf(stderr,"Could not create property list!\n");
         return 1;
     }
-
-    if(H5Pset_filter(plist,(H5Z_filter_t)32008,H5Z_FLAG_MANDATORY,0,0)<0)
+        
+    unsigned int params[] = {0,3,1,0,2};
+    if(H5Pset_filter(plist,(H5Z_filter_t)32008,H5Z_FLAG_MANDATORY,(size_t)5,params)<0)
     {
         fprintf(stderr,"Failed to load filter!\n");
         return 1;

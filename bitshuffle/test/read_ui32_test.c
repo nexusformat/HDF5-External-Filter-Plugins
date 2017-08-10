@@ -12,7 +12,7 @@ int main()
     hid_t fid = H5Fopen(fname,H5F_ACC_RDONLY,H5P_DEFAULT);
     if(fid<0) return 1;
 
-    hid_t dset = H5Dopen(fid,"/data_uint8",H5P_DEFAULT);
+    hid_t dset = H5Dopen(fid,"/data_uint32",H5P_DEFAULT);
     if(dset<0) return 1;
     
     uint8_t data[NX*NY*NZ];
@@ -23,7 +23,7 @@ int main()
     size_t index;
     for(index=0;index<NX*NY*NZ;index++)
     {
-        if(data[index]!=(uint8_t)index) return 1;
+        if(data[index]!=(uint32_t)index) return 1;
     }
 
     return 0;
