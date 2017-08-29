@@ -7,4 +7,5 @@ bzip2/1.0.6@wintersb/stable
 cmake
 
 [imports]
+bin, *.dll -> ./plugins
 bin, *.dll -> ./bin
