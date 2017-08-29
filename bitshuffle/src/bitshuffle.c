@@ -1272,7 +1272,11 @@ int64_t bshuf_compress_lz4_block(ioc_chain *C_ptr,
         free(tmp_buf_bshuf);
         return count;
     }
+#if LZ4_VERSION_NUMBER > 10300
+    nbytes = LZ4_compress_default(tmp_buf_bshuf, tmp_buf_lz4, size * elem_size,size*elem_size);
+#else
     nbytes = LZ4_compress(tmp_buf_bshuf, tmp_buf_lz4, size * elem_size);
+#endif
     free(tmp_buf_bshuf);
     CHECK_ERR_FREE_LZ(nbytes, tmp_buf_lz4);
 
