@@ -50,6 +50,10 @@ else()
     set(USE_CONAN OFF)
 endif()
 
+if(ENABLE_LZ4_PLUGIN OR ENABLE_BITSHUFFLE_PLUGIN)
+	include(cmake/ConfigureLZ4.cmake)
+endif()
+
 #=============================================================================
 # some global configuration - check for things we need to build all the 
 # filter plugins.
