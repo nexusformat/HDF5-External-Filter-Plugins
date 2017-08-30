@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(hdf5_filter_plugins
-        LANGUAGES C
+        LANGUAGES C CXX
         VERSION 0.0.1)
 include(CTest)
 include(CPackComponent)
@@ -42,12 +42,14 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 #         available to the system linker we can also copy all the dependencies
 #         directly to the directory where the plugins will be installed. 
 #=============================================================================
-if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
-    include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
-    set(USE_CONAN ON)
-else()
-    set(USE_CONAN OFF)
+set(ENABLE_CONAN OFF CACHE BOOL "Enable dependency build with conan")
+
+if(ENABLE_CONAN)
+	include(cmake/ConanSetup.cmake)
+	
+    conan_cmake_run(CONANFILE conanfile.txt
+    	            BASIC_SETUP
+    	            BUILD missing)
 endif()
 
 if(ENABLE_LZ4_PLUGIN OR ENABLE_BITSHUFFLE_PLUGIN)
