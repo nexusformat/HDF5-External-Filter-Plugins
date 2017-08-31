@@ -26,6 +26,11 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 #=============================================================================
+# list with external libraries which must be installed 
+#=============================================================================
+set(EXTERNAL_LIBRARIES)
+
+#=============================================================================
 # if there is a conan file in the build directory we use conan to satisfy
 # the build dependencies. This is currently not implemented.
 #
@@ -54,6 +59,10 @@ endif()
 
 if(ENABLE_LZ4_PLUGIN OR ENABLE_BITSHUFFLE_PLUGIN)
 	include(cmake/ConfigureLZ4.cmake)
+
+    if(CMAKE_SYSTEM_NAME MATCHES Windows)
+        list(APPEND EXTERNAL_LIBRARIES ${PROJECT_BINARY_DIR}/bin/liblz4.dll)
+    endif()
 endif()
 
 #=============================================================================
@@ -70,6 +79,13 @@ find_package(HDF5 REQUIRED COMPONENTS C)
 if(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_definitions(-DH5_BUILT_AS_DYNAMIC_LIB)
     link_directories(${HDF5_LIBRARY_DIRS})
+
+    list(APPEND EXTERNAL_LIBRARIES ${PROJECT_BINARY_DIR}/bin/zlib.dll
+                                   ${PROJECT_BINARY_DIR}/bin/hdf5.dll
+                                   ${PROJECT_BINARY_DIR}/bin/msvcp140.dll
+                                   ${PROJECT_BINARY_DIR}/bin/vcruntime140.dll
+                                   ${PROJECT_BINARY_DIR}/bin/hdf5_tools.dll
+                                   )
 endif()
 
 
@@ -129,6 +145,9 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
 
     set(CPACK_RESOURCE_FILE_LICENSE "${RESOURCE_DIR}/LICENSE.txt")
     set(CPACK_WIX_PATCH_FILE "${PROJECT_SOURCE_DIR}/hdf5_plugin_path_patch.xml")
+
+    install(FILES ${EXTERNAL_LIBRARIES} 
+            DESTINATION ${CMAKE_INSTALL_PLUGINDIR})
 
     include(CPack)
     include(CPackWIX)
