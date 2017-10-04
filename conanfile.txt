@@ -1,0 +1,16 @@
+[requires]
+hdf5/1.10.1@eugenwintersberger/testing
+lz4/1.7.5@eugenwintersberger/testing
+bzip2/1.0.6@eugenwintersberger/testing
+
+[options]
+hdf5:shared=True
+bzip2:shared=True
+lz4:shared=True
+
+[generators]
+cmake
+
+[imports]
+bin, *.dll -> ./plugins
+bin, *.dll -> ./bin

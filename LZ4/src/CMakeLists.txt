@@ -1,73 +1,30 @@
-cmake_minimum_required (VERSION 2.8.10)
-project (H5LZ4_SRC C)
+set(SOURCES H5Zlz4.c)
 
-#-----------------------------------------------------------------------------
-# Setup include Directories
-#-----------------------------------------------------------------------------
-INCLUDE_DIRECTORIES (${H5LZ4_SRC_SOURCE_DIR})
-INCLUDE_DIRECTORIES (${CMAKE_BINARY_DIR})
+set(INCLUDE_DIRS ${HDF5_INCLUDE_DIRS} ${LZ4_INCLUDE_DIRS})
+set(LINK_LIBS ${LZ4_LIBRARIES})
 
-#-----------------------------------------------------------------------------
-# Apply Definitions to compiler in this directory and below
-#-----------------------------------------------------------------------------
-add_definitions (${HDF5_EXTRA_C_FLAGS})
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+    #
+    # we need to link with the winsock2 library
+    #
+    list(APPEND LINK_LIBS ws2_32.lib)
+endif()
 
-#-----------------------------------------------------------------------------
-# Setup include Directories
-#-----------------------------------------------------------------------------
-INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR} ${LZ4_INCLUDE_DIRS})
 
-#-----------------------------------------------------------------------------
-# Define H5LZ4 Library
-#-----------------------------------------------------------------------------
-set (H5LZ4_SRCS
-    ${H5LZ4_SRC_SOURCE_DIR}/H5Zlz4.c
-)
-if (BUILD_LZ4_LIBRARY_SOURCE)
-  set (H5LZ4_SRCS ${H5LZ4_SRCS}
-      ${H5LZ4_SRC_SOURCE_DIR}/lz4.c
-      ${H5LZ4_SRC_SOURCE_DIR}/lz4.h
-      ${H5LZ4_SRC_SOURCE_DIR}/lz4hc.c
-      ${H5LZ4_SRC_SOURCE_DIR}/lz4hc.h
-  )
-endif (BUILD_LZ4_LIBRARY_SOURCE)
+add_library(lz4_plugin MODULE ${SOURCES})
+target_include_directories(lz4_plugin PRIVATE ${INCLUDE_DIRS})
+target_link_libraries(lz4_plugin PRIVATE ${LINK_LIBS})
+set_target_properties(lz4_plugin PROPERTIES OUTPUT_NAME h5lz4
+                      LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HDF5_PLUGIN_PATH}
+                      ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HDF5_PLUGIN_PATH}
+                      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HDF5_PLUGIN_PATH}
+                      LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_HDF5_PLUGIN_PATH}
+                      LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_HDF5_PLUGIN_PATH}
+                      RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_HDF5_PLUGIN_PATH}
+                      RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_HDF5_PLUGIN_PATH}
+                      )
 
-add_library (${H5LZ4_LIB_TARGET} ${LIB_TYPE} ${H5LZ4_SRCS})
-target_link_libraries (${H5LZ4_LIB_TARGET} ${LINK_LIBS})
-  if (WIN32)
-    target_link_libraries (${H5LZ4_LIB_TARGET} "ws2_32.lib")
-  endif (WIN32)
-SET_GLOBAL_VARIABLE (H5LZ4_LIBRARIES_TO_EXPORT ${H5LZ4_LIB_TARGET})
-H5LZ4_SET_LIB_OPTIONS (${H5LZ4_LIB_TARGET} ${H5LZ4_LIB_NAME} ${LIB_TYPE})
+install(TARGETS lz4_plugin
+        DESTINATION ${CMAKE_INSTALL_PLUGINDIR})
 
-if (BUILD_TESTING)
-  #-----------------------------------------------------------------------------
-  # Copy plugin library to a plugins folder
-  #-----------------------------------------------------------------------------
 
-  # make plugins dir
-  file (MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/plugins")
-  add_custom_command (
-      TARGET     ${H5LZ4_LIB_TARGET}
-      POST_BUILD
-      COMMAND    ${CMAKE_COMMAND}
-      ARGS       -E copy_if_different 
-        "$<TARGET_FILE:${H5LZ4_LIB_TARGET}>"
-        "${CMAKE_BINARY_DIR}/plugins/$<TARGET_FILE_NAME:${H5LZ4_LIB_TARGET}>"
-  )
-endif (BUILD_TESTING)
-
-#-----------------------------------------------------------------------------
-# Add Target(s) to CMake Install for import into other projects
-#-----------------------------------------------------------------------------
-if (H5LZ4_EXPORTED_TARGETS)
-  install (
-      TARGETS
-          ${H5LZ4_LIB_TARGET}
-      EXPORT
-          ${H5LZ4_EXPORTED_TARGETS}
-      LIBRARY DESTINATION ${H5LZ4_INSTALL_LIB_DIR} COMPONENT libraries
-      ARCHIVE DESTINATION ${H5LZ4_INSTALL_LIB_DIR} COMPONENT libraries
-      RUNTIME DESTINATION ${H5LZ4_INSTALL_BIN_DIR} COMPONENT libraries
-  )
-endif (H5LZ4_EXPORTED_TARGETS)
