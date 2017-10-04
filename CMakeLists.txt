@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(hdf5_filter_plugins
         LANGUAGES C CXX
-        VERSION 0.0.1)
+        VERSION 0.1.0)
 include(CTest)
 include(CPackComponent)
 
