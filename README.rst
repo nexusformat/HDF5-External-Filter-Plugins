@@ -14,15 +14,19 @@ for HDF5 for
 Installation
 ============
 
-Currently the plugins must be built directly from the sources. On Windows
-use ``CMake`` and on Linux the ``autotools`` scripts delivered to build the code.
-If you have a running WiX distribution installed on your Windows system
-MSI packages can be built. Currently the installation requires some
-manual intervention once the code is built (or even after an eventual
-MSI package has been installed).
-For detailed information about the current installation procedures consult
-the ``Readme`` files in the plugin subdirectories. 
+Currently the plugins must be built directly from the sources using `cmake`
+version 3 or higher.  To build, use commands like these::
+
+    mkdir build
+    cd build
+    cmake .. -DENABLE_BITSHUFFLE_PLUGIN=yes -DENABLE_LZ4_PLUGIN=yes -DENABLE_BZIP2_PLUGIN=yes -DCMAKE_INSTALL_PREFIX=/usr/local
+    make install
+
+For detailed information about the installation procedures for each module,
+consult the ``Readme`` files in the plugin subdirectories.
 
 
-
-
+If you have a running WiX distribution installed on your Windows system MSI
+packages can be built. Currently the installation requires some manual
+intervention once the code is built (or even after an eventual MSI package
+has been installed).
