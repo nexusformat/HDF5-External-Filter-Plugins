@@ -151,7 +151,7 @@ static size_t H5Z_filter_lz4(unsigned int flags, size_t cd_nelmts,
             blockSize = nbytes;
         }
         nBlocks = (nbytes-1)/blockSize +1;
-        maxDestSize = LZ4_compressBound(nbytes) + 4 + 8 + nBlocks*4;
+        maxDestSize = nBlocks * LZ4_compressBound(blockSize) + 4 + 8 + nBlocks*4;
         outBuf = H5allocate_memory(maxDestSize, false);
         if (NULL == outBuf)
         {
@@ -179,7 +179,7 @@ static size_t H5Z_filter_lz4(unsigned int flags, size_t cd_nelmts,
                 blockSize = nbytes - origWritten;
 
 #if LZ4_VERSION_NUMBER > 10300
-            compBlockSize = LZ4_compress_default(rpos, roBuf+4,blockSize, maxDestSize-outSize); /// reserve space for compBlockSize
+            compBlockSize = LZ4_compress_default(rpos, roBuf+4, blockSize, LZ4_compressBound(blockSize)); /// reserve space for compBlockSize
 #else
             compBlockSize = LZ4_compress(rpos, roBuf+4, blockSize); /// reserve space for compBlockSize
 #endif
