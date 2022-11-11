@@ -96,7 +96,11 @@ main (void)
         if ( (filter_config & H5Z_FILTER_CONFIG_ENCODE_ENABLED) && 
                 (filter_config & H5Z_FILTER_CONFIG_DECODE_ENABLED) ) 
             printf ("lz4 filter is available for encoding and decoding.\n");
-    }     
+    } else {
+        printf ("failed to set filter.\n");
+        goto done;
+    }
+
     status = H5Pset_chunk (dcpl_id, 2, chunk);
     if (status < 0) printf ("failed to set chunk.\n");
 
